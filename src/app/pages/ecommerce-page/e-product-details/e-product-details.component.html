@@ -1,0 +1,156 @@
+<div class="spinner-container" *ngIf="loading; else showDetailsPage">
+    <mat-progress-spinner
+        mode="indeterminate"
+        diameter="50"
+        color="primary"
+    ></mat-progress-spinner>
+</div>
+
+<ng-template #showDetailsPage>
+    <!-- Product Details Card -->
+    <mat-card
+        class="trinta-card product-details-card mb-25 bg-white border-none d-block"
+    >
+        <mat-card-content>
+            <div class="row align-items-center">
+                <div class="col-xxxl-5 col-lg-6 col-md-12">
+                    <div class="product-details-image">
+                        <div class="product-gallery__featured">
+                            <owl-carousel-o
+                                [options]="{ items: 1, dots: false }"
+                                #owlCar
+                            >
+                                <ng-container
+                                    *ngFor="let image of productImages"
+                                >
+                                    <ng-template carouselSlide [id]="image.url">
+                                        <img
+                                            [src]="
+                                                concessionnaire?.siteWeb +
+                                                '/' +
+                                                vehicule?.attributes?.photo
+                                            "
+                                            [alt]="vehicule?.attributes?.nom"
+                                            class="border-radius"
+                                        />
+                                    </ng-template>
+                                </ng-container>
+                            </owl-carousel-o>
+                        </div>
+                        <div class="product-gallery__carousel">
+                            <owl-carousel-o
+                                [options]="{
+                                    dots: false,
+                                    margin: 10,
+                                    autoWidth: true
+                                }"
+                            >
+                                <ng-container
+                                    *ngFor="
+                                        let slot of vehicule?.attributes
+                                            ?.galerie;
+                                        let i = index
+                                    "
+                                >
+                                    <ng-template
+                                        carouselSlide
+                                        [id]="slot"
+                                        [width]="100"
+                                    >
+                                        <a
+                                            (click)="
+                                                owlCar.to(
+                                                    concessionnaire?.siteWeb +
+                                                        '/' +
+                                                        slot
+                                                );
+                                                changeimage(
+                                                    concessionnaire?.siteWeb +
+                                                        '/' +
+                                                        slot +
+                                                        i
+                                                )
+                                            "
+                                            class="border-radius"
+                                        >
+                                            <img
+                                                [src]="
+                                                    concessionnaire?.siteWeb +
+                                                    '/' +
+                                                    slot
+                                                "
+                                                [alt]="
+                                                    concessionnaire?.siteWeb +
+                                                    '/' +
+                                                    slot
+                                                "
+                                                class="border-radius"
+                                            />
+                                        </a>
+                                    </ng-template>
+                                </ng-container>
+                            </owl-carousel-o>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxxl-7 col-lg-6 col-md-12">
+                    <div class="product-details-content">
+                        <div
+                            class="title d-flex align-items-center justify-content-between"
+                        >
+                            <h3 class="mb-0">
+                                {{ vehicule?.attributes?.nom }}
+                            </h3>
+                            <div class="action d-flex align-items-center">
+                                <a
+                                    routerLink="/ecommerce-page/product-details"
+                                    class="d-inline-block"
+                                >
+                                    <i-feather name="edit-3"></i-feather>
+                                </a>
+                                <a  (click)="openDialog('0ms', '0ms')"
+                                    
+                                    class="d-inline-block"
+                                >
+                                    <i-feather name="trash-2"></i-feather>
+                                </a>
+                            </div>
+                        </div>
+                        <span class="category text-body d-block">
+                            {{ vehicule?.attributes?.marque }}
+                        </span>
+
+                        <span class="sub-title d-block fs-14 fw-medium">
+                            Description :
+                        </span>
+
+                        {{ vehicule?.attributes?.description_detaillee }}
+
+                        <div class="d-md-flex align-items-center">
+                            <div class="box d-flex align-items-center">
+                                <div
+                                    class="icon d-flex align-items-center justify-content-center rounded-circle text-white"
+                                >
+                                    <i-feather name="dollar-sign"></i-feather>
+                                </div>
+                                <div>
+                                    <span class="d-block text-gray">
+                                        Prix
+                                    </span>
+                                    <h4 class="mb-0 fw-medium">
+                                        {{ vehicule?.attributes?.prix }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-template>
+<!-- Reviews
+<app-reviews /> -->
+
+<!-- Outlets Details
+<app-outlets-details /> -->
