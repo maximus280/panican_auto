@@ -26,6 +26,7 @@ import { Concessionnaire } from '../../../models/concessionnaire.model';
 
 import { FTPConfig } from '../../../models/ftp.model';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-e-create-product',
     imports: [NgxFileDropModule, MatProgressSpinner, DragDropModule, MatCardModule, MatButtonModule, CommonModule, ReactiveFormsModule, MatMenuModule, FormsModule, MatFormFieldModule, MatInputModule, FeathericonsModule, NgxEditorModule, MatDatepickerModule, FileUploadModule, MatSelectModule, NgIf],
@@ -70,6 +71,7 @@ export class ECreateProductComponent {
         private carManagerService: CarmanagerService,
         private toastr: HotToastService,
         private session: SessionStorageService,
+    private router: Router,
     ) {
         this.vehiculeForm = this.fb.group({
 
@@ -169,7 +171,10 @@ export class ECreateProductComponent {
             this.concessionnaire!.ftpPass,
             this.concessionnaire!.ftpPort,
         );
-
+        if (!this.vehiculeForm.get("année")?.valid) {
+            this.toastr.error("Le année est invalide !");
+            return;
+        }
 
 
         console.log(ftpConfig);
@@ -240,6 +245,7 @@ export class ECreateProductComponent {
                         this.toastr.success('Vehicule créé avec succès.');
                         this.loading = false;
                         this.vehiculeForm.reset();
+                        this.router.navigate(['/car-page']);
 
                     },
                     (error) => {

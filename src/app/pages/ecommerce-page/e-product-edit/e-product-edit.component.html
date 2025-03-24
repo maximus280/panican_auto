@@ -394,49 +394,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-12">
-                <!-- Zone Drag & Drop -->
-                <ngx-file-drop
-                    [dropZoneLabel]="
-                        'Déposez et classez les images de votre véhicule ici'
-                    "
-                    [showBrowseBtn]="false"
-                    [multiple]="false"
-                    [accept]="'image/*'"
-                    (onFileDrop)="onFileDropped($event)"
-                >
-                </ngx-file-drop>
-
-                <!-- Galerie des images sélectionnées avec Drag & Drop -->
-                <div
-                    class="gallery"
-                    *ngIf="files.length > 0"
-                    cdkDropList
-                    (cdkDropListDropped)="drop($event)"
-                >
-                    <div
-                        class="gallery-item"
-                        *ngFor="let file of files; let i = index"
-                        cdkDrag
-                    >
-                        <img
-                            *ngIf="file.previewUrl"
-                            [src]="file.previewUrl"
-                            [alt]="file.name"
-                        />
-
-                        <!-- Bouton de suppression -->
-                        <button
-                            mat-icon-button
-                            color="warn"
-                            (click)="removeFile(i)"
-                        >
-                            <i-feather name="trash-2"></i-feather>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+          
             <div class="spinner-container" *ngIf="loading; else showButton">
                 <mat-progress-spinner
                     mode="indeterminate"

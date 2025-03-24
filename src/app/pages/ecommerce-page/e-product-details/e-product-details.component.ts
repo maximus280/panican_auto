@@ -50,7 +50,8 @@ export class EProductDetailsComponent {
 
     id: string = '';
     vehicule: Vehicule | null = null;
-    constructor(private route: ActivatedRoute,
+    constructor(
+        private route: ActivatedRoute,
         private carManagerService: CarmanagerService,
         private session: SessionStorageService,
         private toastr: HotToastService,   
@@ -58,13 +59,13 @@ export class EProductDetailsComponent {
     ) { 
      
     }
-    ngOnInit() {
+    async ngOnInit() {
         // Récupérer le paramètre "id" depuis l'URL
         this.id = this.route.snapshot.paramMap.get('id') || '';
 
         console.log('ID du véhicule:', this.id);
         this.loading = true;
-        this.carManagerService.getVehicule(parseInt(this.id)).subscribe(
+       await this.carManagerService.getVehicule(parseInt(this.id)).subscribe(
             (response) => {
                 console.log('Réponse de l\'API :', response.data);
 
@@ -89,11 +90,17 @@ export class EProductDetailsComponent {
         return concessionnaireData ? JSON.parse(concessionnaireData) as Concessionnaire : null;
     }
 
-    openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    openDialog(id: number, route: string,enterAnimationDuration: string, exitAnimationDuration: string): void {
         this.dialog.open(DialogAnimationsExampleDialog, {
-            width: '250px',
+            width: '350px',
             enterAnimationDuration,
             exitAnimationDuration,
+            data: { id, route }
         });
     }
+
+    stripHtml(html: string): string {
+        return html ? html.replace(/<[^>]+>/g, '') : '';
+      }
+      
 }

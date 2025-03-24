@@ -36,9 +36,24 @@
                             class="card-header-menu"
                             xPosition="before"
                         >
-                            <button mat-menu-item  routerLink="/car-page/product-details/{{vehicule.id}}">Details</button>
-                            <button mat-menu-item>Modifier</button>
-                            <button mat-menu-item>Supprimer</button>
+                
+                            <button mat-menu-item (click)="navigateToRditPage(vehicule?.attributes?.id)">Modifier</button>
+                          
+
+                            <ng-container *ngIf="vehicule?.attributes?.state === 0; else publierTemplate">
+                                <button mat-menu-item (click)="publish(vehicule?.attributes?.id || 0)">
+                                  Publier
+                                </button>
+                              </ng-container>
+                              
+                              <ng-template #publierTemplate>
+                                <button mat-menu-item (click)="unpublish(vehicule?.attributes?.id || 0)">
+                                  Dépublier
+                                </button>
+                              </ng-template>
+                              
+                              
+                            <button mat-menu-item (click)="openDialog(vehicule?.attributes?.id || 0 ,'/vehicules','0ms', '0ms')">Supprimer</button>
                         </mat-menu>
                     </mat-card-subtitle>
                 </mat-card-header>
@@ -47,12 +62,12 @@
                         routerLink="/car-page/product-details/{{vehicule.id}}"
                         class="image"
                     >
-                        <img
-                            src="{{ concessionnaire?.siteWeb }}/{{
-                                vehicule.attributes.photo
-                            }}"
-                            alt="{{ vehicule.attributes.nom }}"
-                        />
+                    <img
+                    [src]="concessionnaire?.siteWeb + '/' + vehicule.attributes.photo"
+                    [alt]="vehicule.attributes.nom"
+                    [ngClass]="{'image-depubliee': vehicule.attributes.state === 0}"
+                  />
+                  
                     </a>
                     <div class="content">
                         <h5>

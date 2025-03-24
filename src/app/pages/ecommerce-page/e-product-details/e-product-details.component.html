@@ -108,7 +108,7 @@
                                 >
                                     <i-feather name="edit-3"></i-feather>
                                 </a>
-                                <a  (click)="openDialog('0ms', '0ms')"
+                                <a  (click)="openDialog(vehicule?.attributes?.id || 0 ,'/vehicules','0ms', '0ms')"
                                     
                                     class="d-inline-block"
                                 >
@@ -124,25 +124,83 @@
                             Description :
                         </span>
 
-                        {{ vehicule?.attributes?.description_detaillee }}
+  
+                        <div>{{ stripHtml(vehicule?.attributes?.description_detaillee || '') }}</div>
 
+
+
+                        <ul class="list p-0 list-unstyled">
+                            <li class="d-flex align-items-center fs-14">
+                                <span class="d-block fw-medium">
+                                    Color :
+                                </span>
+                                <div class="colors">
+                                    <img src="images/colors.png" alt="colors">
+                                </div>
+                            </li>
+                            <li class="d-flex align-items-center fs-14">
+                                <span class="d-block fw-medium">
+                                    Availability :
+                                </span>
+                                <span class="d-block availability">
+                                    in stock <span class="fw-semibold fs-15">2,508</span> Pics 
+                                </span>
+                            </li>
+                            <li class="d-flex align-items-center fs-14">
+                                <span class="d-block fw-medium">
+                                    Category :
+                                </span>
+                                <span class="text-black">
+                                    Furniture
+                                </span>
+                            </li>
+                            <li class="d-flex align-items-center fs-14">
+                                <span class="d-block fw-medium">
+                                    SKU :
+                                </span>
+                                <span class="d-block text-black">
+                                    Demo Model-12
+                                </span>
+                            </li>
+                            <li class="d-flex align-items-center fs-14">
+                                <span class="d-block fw-medium">
+                                    Vendor :
+                                </span>
+                                <span class="d-block text-black">
+                                    Lereve Mad
+                                </span>
+                            </li>
+                        </ul>
                         <div class="d-md-flex align-items-center">
                             <div class="box d-flex align-items-center">
-                                <div
-                                    class="icon d-flex align-items-center justify-content-center rounded-circle text-white"
-                                >
+                                <div class="icon d-flex align-items-center justify-content-center rounded-circle text-white">
                                     <i-feather name="dollar-sign"></i-feather>
                                 </div>
                                 <div>
                                     <span class="d-block text-gray">
-                                        Prix
+                                        Total revenue
                                     </span>
                                     <h4 class="mb-0 fw-medium">
                                         {{ vehicule?.attributes?.prix }}
                                     </h4>
                                 </div>
                             </div>
+                            <div class="box d-flex align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center rounded-circle text-white">
+                                    <i-feather name="check-circle"></i-feather>
+                                </div>
+                                <div>
+                                    <span class="d-block text-gray">
+                                        Total order
+                                    </span>
+                                    <h4 class="mb-0 fw-medium">
+                                        20.9k
+                                    </h4>
+                                </div>
+                            </div>
                         </div>
+
+                       
                     </div>
                 </div>
             </div>

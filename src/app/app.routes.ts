@@ -162,6 +162,7 @@ import { PieChartsComponent } from './apexcharts/pie-charts/pie-charts.component
 import { PolarChartsComponent } from './apexcharts/polar-charts/polar-charts.component';
 import { MoreChartsComponent } from './apexcharts/more-charts/more-charts.component';
 import { AuthGuard } from './guards/auth.guard';
+import { EProductEditComponent } from './pages/ecommerce-page/e-product-edit/e-product-edit.component';
 
 export const routes: Routes = [
     {path: '', redirectTo:'authentication',pathMatch: 'full'},
@@ -198,6 +199,7 @@ export const routes: Routes = [
             {path: '', component: EProductsGridComponent, canActivate: [AuthGuard] },
             {path: 'products-list', component: EProductsListComponent, canActivate: [AuthGuard] },
             {path: 'product-details/:id', component: EProductDetailsComponent, canActivate: [AuthGuard] },
+            {path: 'product-edit/:id', component: EProductEditComponent, canActivate: [AuthGuard] },
             {path: 'create-product', component: ECreateProductComponent, canActivate: [AuthGuard] },
             {path: 'cart', component: ECartComponent, canActivate: [AuthGuard] },
             {path: 'checkout', component: ECheckoutComponent, canActivate: [AuthGuard] },
